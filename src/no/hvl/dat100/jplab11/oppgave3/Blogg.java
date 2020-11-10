@@ -5,46 +5,85 @@ import no.hvl.dat100.jplab11.oppgave1.*;
 
 public class Blogg {
 
-	// TODO: objektvariable 
+	private Innlegg[] innleggTabell;
+	private int nesteLedig;
 
 	public Blogg() {
-		throw new UnsupportedOperationException(TODO.constructor("Blogg"));
+		this.innleggTabell = new Innlegg[20];
+		
 	}
 
 	public Blogg(int lengde) {
-		throw new UnsupportedOperationException(TODO.constructor("Blogg"));
+		this.innleggTabell = new Innlegg[lengde];
 	}
 
 	public int getAntall() {
-		throw new UnsupportedOperationException(TODO.method());
+		return nesteLedig;
 	}
 	
 	public Innlegg[] getSamling() {
-		throw new UnsupportedOperationException(TODO.method());
+		return innleggTabell;
 
 	}
 	
 	public int finnInnlegg(Innlegg innlegg) {
 
-		throw new UnsupportedOperationException(TODO.method());
+		boolean funnet = false;
+		int i = 0;
+		
+		while (i < nesteLedig && !funnet) {
+			if (innleggTabell[i].erLik(innlegg)) {
+				funnet = true;
+			} else {
+				i++;
+			}
+		}
+		if (funnet) {
+			return i;
+		} else {
+			return -1;
+		}
 	}
 
 	public boolean finnes(Innlegg innlegg) {
-		throw new UnsupportedOperationException(TODO.method());
+		boolean finnes = true;
+		
+		if(finnInnlegg(innlegg) == -1) {
+			finnes = false;
+		}
+		return finnes;
 	}
 
 	public boolean ledigPlass() {
-		throw new UnsupportedOperationException(TODO.method());
+		boolean ledig = false;
+		
+		if (innleggTabell.length > nesteLedig) {
+			ledig = true;
+		}
+		
+		return ledig;
 
 	}
 	
 	public boolean leggTil(Innlegg innlegg) {
 
-		throw new UnsupportedOperationException(TODO.method());
+		boolean lagtTil =! finnes(innlegg) && ledigPlass();
+		
+		if (lagtTil) {
+			innleggTabell[nesteLedig] = innlegg;
+			lagtTil = true;
+			nesteLedig++;
+		}
+		return lagtTil;
 	}
 	
 	public String toString() {
-		throw new UnsupportedOperationException(TODO.method());
+		String b = getAntall() + "\n";
+		
+		for (int i = 0; i < innleggTabell.length; i++) {
+			b += innleggTabell[i].toString();
+		}
+		return b;
 	}
 
 	// valgfrie oppgaver nedenfor
